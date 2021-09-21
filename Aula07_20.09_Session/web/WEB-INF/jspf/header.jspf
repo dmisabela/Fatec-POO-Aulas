@@ -1,0 +1,42 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+
+<% 
+
+if(request.getParameter("session-login") != null) {
+    session.setAttribute("session-name", request.getParameter("session-name"));
+    response.sendRedirect(request.getRequestURI());
+}
+else if(request.getParameter("session-logout") != null) {
+    session.removeAttribute("session-name");
+    response.sendRedirect(request.getRequestURI());
+}
+String sessionName = (String)session.getAttribute("session-name");
+
+
+
+%>
+
+<h1>SessionApp</h1>
+
+<form method="post">
+<a href="index.jsp">Índice</a>
+<a href="page1.jsp">Página 1</a>
+<a href="page2.jsp">Página 2</a>
+
+<%if(sessionName==null) {%>
+
+<input type="text" name="session-name" placeholder="Entre com seu nome" required/>
+<input type ="submit" name="session-login" value="Login"/>
+
+<%}else{%>
+    Bem vindo, <%=sessionName%>
+    <input type="submit" name="session-logout" value="Sair"/>
+<%}%>
+
+    
+</form>
+
+
+
+<hr>
